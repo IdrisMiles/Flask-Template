@@ -3,7 +3,11 @@
 
 {% block content %}
 {{ super() }}
-    <div>
-        Ticket Created!
+    <div class="container">
+        <a href="{{ new_ticket.url }}" class="btn btn-primary btn-large btn-visit-gitlab-ticket">
+            <h2>Ticket Created</h2>
+            <img src="{{ url_for('static', filename='images/gitlab_logo.png')}}" alt="GitLab logo" style="width:70px">
+            <p>Go to GitLab to see ticket</p>
+        </a>
     </div>
 {% endblock %}

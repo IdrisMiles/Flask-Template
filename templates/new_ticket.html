@@ -9,7 +9,7 @@
 {% block content %}
 {{ super() }}
 <div class="container">
-    <form method="POST" action="/ticket_created">
+    <form method="POST">
         {{ form.csrf_token }}
         {{ wtf.form_field(form.title) }}
         {{ wtf.form_field(form.description) }}

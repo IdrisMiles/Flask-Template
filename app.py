@@ -1,13 +1,12 @@
-from flask import Flask, redirect, url_for, session, render_template
+from flask import Flask, redirect, url_for, session, render_template, request
 from flask_oauth import OAuth
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
 
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 import json
+
+import forms
 
 
 GOOGLE_CLIENT_ID = '{GOOGLE_CLIENT_ID}'
@@ -23,13 +22,13 @@ app.secret_key = SECRET_KEY
 Bootstrap(app)
 
 tickets = [
-    {'title': 'Pipeline', 'description': 'An issue with the pipeline such as ftrack, 3D applications, Battery, Volt.', 'icon': 'fas fa-battery-full'},
-    {'title': 'Systems', 'description': 'An issue with your computer, hardware, network.', 'icon': 'fas fa-desktop'},
-    {'title': 'Flame', 'description': 'An issue with flame/flameassist/flare', 'icon': 'fas fa-fire'},
+    {'title': 'Pipeline', 'description': 'An issue with the pipeline such as ftrack, 3D applications, Battery or Volt.', 'icon': 'fas fa-battery-full'},
+    {'title': 'Systems', 'description': 'An issue with your computer, hardware or network.', 'icon': 'fas fa-desktop'},
+    {'title': 'Flame', 'description': 'An issue with flame, flameassist or flare', 'icon': 'fas fa-fire'},
     {'title': 'Farm', 'description': 'An issue with the renderfarm', 'icon': 'fas fa-th'},
     {'title': 'License', 'description': 'An issue with/request for software licenses', 'icon': 'fas fa-file-contract'},
     {'title': 'Restore', 'description': 'Restore a whole/parts of a previous jobs', 'icon': 'fas fa-folder-open'},
-    {'title': 'Other', 'description': '', 'icon': 'fas fa-question'}
+    {'title': 'Other', 'description': 'Any other technical or non-technical issues such as equipment request.', 'icon': 'fas fa-question'}
 ]
 
 oauth = OAuth()
@@ -90,28 +89,32 @@ def index():
     return render_template('index.html', tickets=tickets)
 
 
-class NewTicketForm(FlaskForm):
-    title = StringField('title', validators=[DataRequired()])
-    description = StringField('description', validators=[DataRequired()])
-    workstation = StringField('workstation', validators=[DataRequired()])
+@app.route('/new_ticket/<ticket>', methods=('GET', 'POST'))
+def new_ticket(ticket):
 
-
-@app.route('/new_ticket', methods=('GET', 'POST'))
-def new_ticket():
-    form = NewTicketForm()
+    # get form depending on ticket type
+    print(ticket)
+    form = forms.NewTicketForm()
     if form.validate_on_submit():
-
         # get data from form
         # create gitlab issue from data
         # pass gitlab issue to ticket created template
+        print(request.form['title'])
+        print(request.form['title'])
+        print(request.form['description'])
+        print(request.form['workstation'])
+        index_url = url_for('index')
+        new_ticket = json.dumps({'url': index_url})
 
-        return redirect(url_for('ticket_created'))
+        return redirect(url_for('ticket_created', new_ticket=new_ticket))
     return render_template('new_ticket.html', form=form)
 
 
-@app.route('/ticket_created/<gitlab_issue>', methods=('GET', 'POST'))
-def ticket_created(gitlab_issue):
-    return render_template('ticket_created.html')
+@app.route('/ticket_created', methods=('GET', 'POST'))
+def ticket_created():
+    new_ticket = json.loads(request.args['new_ticket'])
+    print(new_ticket['url'])
+    return render_template('ticket_created.html', new_ticket=new_ticket)
 
 
 if __name__ == '__main__':

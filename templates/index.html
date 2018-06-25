@@ -4,7 +4,7 @@
 {{ super() }}
 <div class="container">
     {% for ticket in tickets %}
-    <a href="/new_ticket" class="btn btn-primary btn-large btn-ticket" style="height:200px; margin: 4px 2px 4px 2px">
+    <a href="{{ url_for('new_ticket', ticket=ticket.title) }}" class="btn btn-primary btn-large btn-ticket" style="height:200px; margin: 4px 2px 4px 2px">
         <h2 class="ticket-title">{{ ticket.title }}</h2>
         <i class="{{ ticket.icon }} fa-5x"></i><br>
         <p class="ticket-description" style="white-space:pre-wrap; width:40ex">{{ ticket.description }}</p>
