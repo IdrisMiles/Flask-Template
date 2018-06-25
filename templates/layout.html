@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel='stylesheet' href="{{ url_for('static', filename='fontawesome/css/all.css')}}">
+{% endblock %}
+
+{% block navbar %}
+<nav class="container">
+
+<a href="/">
+    <img src="static/images/etc_logo.png" alt="ETC logo" style="width:100px">
+    {% block title %}Help Desk{% endblock %}
+</a>
+&emsp; &emsp;
+<a href="https://about.gitlab.com/" target="_blank">
+    <img src="static/images/gitlab_logo.png" alt="ETC logo" style="width:70px">
+</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

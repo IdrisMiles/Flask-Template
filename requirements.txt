@@ -1,1 +1,4 @@
 Flask==0.12.2
+git+https://github.com/mitsuhiko/flask-oauth
+Flask-Bootstrap==3.3.7
+Flask-WTF
