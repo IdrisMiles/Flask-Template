@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
   web:
@@ -8,3 +8,9 @@ services:
       - .:/code
     ports:
       - "5000:5000"
+    secrets:
+     - google_credentials
+
+secrets:
+  google_credentials:
+    file: ./client_secret.json

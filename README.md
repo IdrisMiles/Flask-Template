@@ -1,6 +1,6 @@
 # Dockerized Flask App Template
 
-This is a simple tempalte for a dockerized flask app, it is intended to be a useful starting point.
+This is a simple template for a dockerized flask app with google oauth, it is intended to be a useful starting point for future projects.
 
 ## Requirements
 
@@ -19,6 +19,9 @@ Run the flask app in a dicker container
 ```bash
 # change into project dir
 cd dockerized_flask
+
+# build the docker container
+sudo docker-compose build
 
 # run flask app in docker container
 sudo docker-compose up
