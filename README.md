@@ -15,7 +15,7 @@ Check out the repo:
 git clone https://github.com/IdrisMiles/dockerized_flask.git
 ```
 
-Run the flask app in a dicker container
+Run the flask app in a docker container
 ```bash
 # change into project dir
 cd dockerized_flask
