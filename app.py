@@ -37,9 +37,12 @@ google = oauth.remote_app(
     request_token_url=None,
     request_token_params={
         'scope': 'email profile',
+        'access_type': 'offline',
+        'prompt': 'consent',
+        'refresh_token_url': 'https://www.googleapis.com/oauth2/v4/token',
     },
     access_token_method='POST',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_url='https://www.googleapis.com/oauth2/v4/token',
     authorize_url='https://accounts.google.com/o/oauth2/auth'
 )
 
@@ -56,7 +59,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('google_token', None)
+    session.pop('google_access_token', None)
+    session.pop('google_refresh_token', None)
     return redirect(url_for('index'))
 
 
@@ -69,13 +73,15 @@ def authorized():
             request.args['error_description']
         )
 
-    session['google_token'] = (resp['access_token'], '')
+    session['google_access_token'] = (resp['access_token'], '')
+    session['google_refresh_token'] = (resp['refresh_token'], '')
     return redirect(url_for('index'))
 
 
 @google.tokengetter
 def get_google_oauth_token():
-    return session.get('google_token')
+    return session.get('google_access_token')
+    # return session.get('google_refresh_token')
 
 
 @app.context_processor
