@@ -12,7 +12,7 @@ This is a simple template for a dockerized flask app with google oauth, it is in
 Check out the repo:
 
 ```bash
-git clone https://github.com/IdrisMiles/dockerized_flask.git
+git clone https://github.com/IdrisMiles/Flask-Template.git
 ```
 
 Run the flask app in a docker container
