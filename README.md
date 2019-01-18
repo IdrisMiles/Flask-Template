@@ -18,7 +18,7 @@ git clone https://github.com/IdrisMiles/Flask-Template.git
 Run the flask app in a docker container
 ```bash
 # change into project dir
-cd dockerized_flask
+cd Flask-Template
 
 # build the docker container
 sudo docker-compose build
