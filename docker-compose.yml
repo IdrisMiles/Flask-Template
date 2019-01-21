@@ -3,14 +3,13 @@ version: '3.1'
 services:
   web:
     build: .
-    command: python app.py
     volumes:
       - .:/code
     ports:
-      - "5000:5000"
+      - "80:80"
     secrets:
-     - google_credentials
+     - credentials
 
 secrets:
-  google_credentials:
-    file: ./client_secret.json
+  credentials:
+    file: credentials.json
