@@ -6,10 +6,10 @@ services:
     volumes:
       - .:/code
     ports:
-      - "80:80"
+      - "80:5000"
     secrets:
-     - credentials
+     - google_credentials
 
 secrets:
-  credentials:
-    file: credentials.json
+  google_credentials:
+    file: google_credentials.json

@@ -12,7 +12,7 @@ def get_google_credentials():
     '''Method to get google credentials dictionary from docker secret
     '''
     credentials_path = os.path.join('/run', 'secrets', 'google_credentials')
-    if not os.path.exists:
+    if not os.path.exists(credentials_path):
         raise RuntimeError('Google credentials secret is not present')
     with open(credentials_path, 'r') as f:
         j = json.load(f)

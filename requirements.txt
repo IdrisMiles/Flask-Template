@@ -3,4 +3,4 @@ Flask-Bootstrap==3.3.7
 Flask-WTF
 WTForms-Components
 requests==2.11.1
-requests_oauthlib
+flask_oauthlib
